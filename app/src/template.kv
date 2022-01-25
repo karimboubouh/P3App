@@ -1,0 +1,227 @@
+ScreenManagement:
+    WelcomeScreen:
+    ConfScreen:
+    TrainScreen:
+    PredictScreen:
+
+<WelcomeScreen>:
+    name: 'welcome'
+    canvas.before:
+        Rectangle:
+            pos: self.pos
+            size: self.size
+            source: 'images/bg.png'
+    Image:
+        id: avatar
+        pos_hint: {"center_y": .8}
+        source: "images/logo1.png"
+    MDLabel:
+        text: "Personalized P2P ML"
+        markup: True
+        halign: "center"
+        pos_hint: {"center_y":.65}
+        font_style: "Subtitle2"
+        line_height: 1.5
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+        font_size: '28dp'
+        font_name: 'fonts/FGSmilla.ttf'
+#        padding:[20,0]
+    MDLabel:
+        text: '"Train your own personalized machine learning model by collaborating with other devices over a fully decentralized network"'
+        markup: True
+        halign: "center"
+        pos_hint: {"center_y":.5}
+        font_style: "Subtitle2"
+        line_height: 1.5
+        theme_text_color: "Custom"
+        text_color: .9, .9, .9
+        font_size: '12dp'
+        font_name: "fonts/Lucida.ttf"
+        padding:[5,0]
+    MDLabel:
+        id: demo
+        text: " ------------------------- "
+        halign: "left"
+        pos_hint: {"center_y":.4}
+        theme_text_color: "Custom"
+        text_color: 1, 1, 1, 1
+        font_size: '8dp'
+        padding:[5,5]
+    MDRaisedButton:
+        # text: "Choose your configuration"
+        text: "Test PyTorch Mobile"
+        pos_hint: {"center_x": 0.5, "center_y":0.25}
+        size_hint: .7,0.08
+        font_size: '16dp'
+        font_name: "fonts/RobotoM.ttf"
+        # on_press: app.root.current = 'conf'
+        # on_press: root.manager.change_screen("conf")
+        on_press: root.demo()
+    MDLabel:
+        text: "© Copyright UM6P 2022"
+        font_style: "Overline"
+        theme_text_color: "Custom"
+        text_color: .7, .7, .7
+        halign: "center"
+        pos_hint: {"center_y":0.05}
+
+<ConfScreen>:
+    name: 'conf'
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: 'Preferences'
+            left_action_items: [["account-cog", lambda x: app.callback()]]
+            elevation:8
+        MDLabel:
+            text: "Parameter Server address"
+            halign: "center"
+            pos_hint: {"center_x": 0.5, "center_y":.5}
+            font_style: "Subtitle2"
+            line_height: 1.5
+            # size_hint: 1, 2
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: "40dp"
+            padding: [40, 10, 40, 20]
+            MDTextField:
+                id: server_host
+                hint_text: "IP Address"
+                pos_hint: {"center_x": 0.5, "center_y":.5}
+                halign: "center"
+                mode: "rectangle"
+            MDTextField:
+                id: server_port
+                hint_text: "Port"
+                input_filter: 'int'
+                size_hint: None, None
+                pos_hint: {"center_x": 0.5, "center_y":.5}
+                width: "50dp"
+                halign: "center"
+                mode: "rectangle"
+        MDLabel:
+            id: samples_label
+            text: "Describe the performance of your device"
+            halign: "center"
+            font_style: "Subtitle2"
+            line_height: 1.5
+            # size_hint: 1, 1
+        MDBoxLayout:
+            padding: [30, 0, 30, 50]
+            spacing: "35dp"
+            pos_hint: {"center_x": .5}
+            adaptive_size: True
+            UIToggleButton:
+                id: low_cap
+                text: "Low"
+                icon: "alpha-l-box"
+                group: "preference"
+            UIToggleButton:
+                id: mod_cap
+                text: "Moderate"
+                icon: "alpha-m-box"
+                group: "preference"
+            UIToggleButton:
+                id: pow_cap
+                text: "Powerful"
+                icon: "alpha-p-box"
+                group: "preference"
+        MDLabel:
+            id: ds_label
+            text: "Select your dataset"
+            halign: "center"
+            pos_hint: {"center_x": 0.5, "center_y":.5}
+            font_style: "Subtitle2"
+            line_height: 1.5
+        MDRoundFlatIconButton:
+            text: "Open manager"
+            icon: "folder"
+            pos_hint: {'center_x': .5, 'center_y': .6}
+            on_release: root.file_manager_open()
+        MDLabel:
+            text: "Set the maximum number of training samples your device can allow for training"
+            halign: "center"
+            pos_hint: {"center_x": 0.5, "center_y":.5}
+            font_style: "Subtitle2"
+            line_height: 1.5
+            size_hint: 1, 2
+            padding:[20,0]
+        # MDTextField:
+        #     id: samples_input
+        #     spacing: "40dp"
+        #     hint_text: "Number of samples"
+        #     input_filter: 'int'
+        #     mode: "rectangle"
+        #     size_hint: .6, None
+        #     halign: "center"
+        #     pos_hint: {"center_x": 0.5, "center_y": .8}
+        MDBoxLayout:
+            orientation: "horizontal"
+            spacing: "40dp"
+            padding: [40, 10, 40, 20]
+            MDTextField:
+                id: samples_input
+                hint_text: "Number of samples"
+                input_filter: 'int'
+                mode: "rectangle"
+                size_hint: .6, None
+                halign: "center"
+                pos_hint: {"center_x": 0.5, "center_y":.8}
+            MDTextField:
+                id: battery_capacity
+                hint_text: "Battery capacity"
+                input_filter: 'int'
+                mode: "rectangle"
+                size_hint: .6, None
+                halign: "center"
+                pos_hint: {"center_x": 0.5, "center_y":.8}
+        MDLabel:
+            size_hint: 1, 1
+        MDRaisedButton:
+            text: 'Join training'
+            size_hint: 1, 1
+            pos_hint: {'center_x':0.5,'center_y':0.6}
+            on_press:
+                root.configure()
+                root.manager.transition.direction = "left"
+
+<TrainScreen>:
+    name: 'train'
+    on_enter: root.init_train()
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: 'Training'
+            left_action_items: [["account-cog", lambda x: app.callback()]]
+            elevation:8
+        MDLabel:
+            id: train_log
+            text: "Wait please ..."
+            padding: [20,0]
+            line_height: 3
+        MDRaisedButton:
+            text: 'Disconnect'
+            size_hint: 1, .1
+            md_bg_color: app.theme_cls.error_color
+            pos_hint: {'center_x':0.5,'center_y':0.1}
+            on_press: root.disconnect()
+        
+<PredictScreen>:
+    name: 'predict'
+    MDBoxLayout:
+        orientation: "vertical"
+        MDToolbar:
+            title: 'Training summary'
+            left_action_items: [["switch", lambda x: app.callback()]]
+            elevation:8
+        MDLabel:
+            id: train_summary
+            text: 'Training finished.'
+            padding: [50,0]
+            line_height: 3
+        MDRaisedButton:
+            text: 'Start over'
+            size_hint: 1, .1
+            pos_hint: {'center_x':0.5,'center_y':0.1}
+            on_press: root.manager.current = 'welcome'

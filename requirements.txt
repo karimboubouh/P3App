@@ -1,0 +1,7 @@
+numpy~=1.19.4
+joblib~=1.0.0
+termcolor~=1.1.0
+
+Kivy~=2.0.0
+kivymd~=0.104.2.dev0
+plyer~=2.0.0
